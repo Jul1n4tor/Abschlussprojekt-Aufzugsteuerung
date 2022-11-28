@@ -3,7 +3,7 @@ import java.util.Scanner;
 /*
  * Das ist die Methode zum Steuern des Aufzugs. Hier habe ich versucht ein Programm Aufzuzuiehen, 
  * dass Inputs lesen und die richtigen Ausgaben dazu machen kann. 
- * Leider bin ich daran gescheitert, dass: 1.Das Programm nichtmehr mit der Eingangsnachricht startet und 2.das Programm nach der ersten Eingabe beendet wird.
+ * Leider bin ich daran gescheitert, dass: 1.Das Programm nicht mehr mit der Eingangsnachricht startet und 2.das Programm nach der ersten Eingabe beendet wird.
  * Das Konstrukt ist noch sehr Primitiv und es existieren noch keine Variablen. Beides muss noch später eingearbeitet werden.
  * 
  * Die Auskommentierten Argumente am Ende waren versuche mit ergebnissen aus dem Web das Problem zu lösen.
