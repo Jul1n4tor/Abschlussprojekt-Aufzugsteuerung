@@ -14,7 +14,7 @@ class Hauptprogramm {
 	}
 }
 
-public class Mainv2 {
+public class Main {
 	static Scanner scannerIN = new Scanner(System.in);
 
 	public static void main(String[] args) {
