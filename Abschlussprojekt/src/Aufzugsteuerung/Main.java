@@ -7,8 +7,8 @@ class Hauptprogramm {
 
 	public int Eingabe() {
 		System.out.println("Was möchten sie tun?");
-		System.out.println("1 Aufzug");
-		System.out.println("2 Attribute");
+		System.out.println("1: Aufzugsteuerung");
+		System.out.println("2: Attribute ausgeben oder ändern");
 		return scannerE.nextInt();
 
 	}
@@ -25,14 +25,17 @@ public class Main {
 			in = UserIn.Eingabe();
 		}
 		Steuerung(in);
-		
+
 	}
 
 	// Steuerung -> Programm-Auswahl Abfrage
 	static void Steuerung(int Ein) {
 
 		if (Ein == 1) {
-			System.out.println("Welchen Aufzug?");
+			System.out.println("Was soll Transportiert werden?");
+			System.out.println("1: Personen");
+			System.out.println("2: Lasten");
+			System.out.println("3: VIP-Aufzug");
 			AufArt(scannerIN.nextInt());
 
 		}
@@ -78,7 +81,7 @@ public class Main {
 
 	// PS -> Personen Aufzug abfrage.
 	static void PS() {
-		System.out.println("Personenaufzug. Wieviele Personen?");
+		System.out.println("Wieviele Personen fahren mit dem Aufzug?");
 
 	}
 
@@ -103,7 +106,7 @@ public class Main {
 
 	// LS -> Lasten Aufzug abfrage.
 	static void LS() {
-		System.out.println("Lastenaufzug. Wieviel KG Last?");
+		System.out.println("Wieviel KG Last soll Transportiert werden?");
 
 	}
 
@@ -114,10 +117,20 @@ public class Main {
 			System.out.println("Von Wo soll der Aufzug losfahren?");
 
 		}
-		if (Anz <= 5000 && Anz > 0) {
+		if (Anz <= 5000 && Anz > 2400) {
 			System.out.println(Anz + " KG ausgewählt. Ein kleiner Lastenaufzug wird sie fahren.");
 			System.out.println("Von Wo soll der Aufzug losfahren?");
 
+		}
+		if (Anz <= 2400 && Anz > 1200) {
+			System.out.println(Anz + " KG ausgewählt. Ein großer Personenaufzug wird sie fahren.");
+			System.out.println("Von Wo soll der Aufzug losfahren?");
+			
+		}
+		if (Anz <= 1200 && Anz > 0) {
+			System.out.println(Anz + " KG ausgewählt. Ein kleiner Personenaufzug wird sie fahren.");
+			System.out.println("Von Wo soll der Aufzug losfahren?");
+			
 		} else {
 			System.out.println("leider falsch bitte neu");
 			LSA(scannerIN.nextInt());
