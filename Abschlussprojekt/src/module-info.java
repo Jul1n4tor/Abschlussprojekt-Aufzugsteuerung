@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author Juliu
- *
- */
-module Abschlussprojekt{
-}
