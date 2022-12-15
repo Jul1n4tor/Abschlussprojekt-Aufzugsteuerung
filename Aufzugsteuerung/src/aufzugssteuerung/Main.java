@@ -91,7 +91,7 @@ public class Main {
 		int Systemcheck = -1;
 		while (Systemcheck > 2 || Systemcheck < 1) {
 			System.out.println("Welche Aktion soll ausgeführt werden?");
-			System.out.println("1: Ein Atribut ändern");
+			System.out.println("1: Ein Attribut ändern");
 			System.out.println("2: Aufzugspositionen abfragen");
 			Systemcheck = scannerIN.nextInt();
 
@@ -138,24 +138,39 @@ public class Main {
 			}
 		}
 		System.out.println("Welchen Wert soll das Attribut annehmen?");
+		Aufzug temp;
 		switch (Attributauswahl) {
 		case 1:
-			Steuerung.getAufzug(Aufzug).setAufzugsart(scannerIN.nextLine());
+			scannerIN.nextLine();
+			temp = Steuerung.getAufzug(Aufzug);
+			temp.setAufzugsart(scannerIN.nextLine());
+			Steuerung.setAufzug(Aufzug, temp);
 			break;
 		case 2:
-			Steuerung.getAufzug(Aufzug).setPersonenzahl(scannerIN.nextInt());
+			temp = Steuerung.getAufzug(Aufzug);
+			temp.setPersonenzahl(scannerIN.nextInt());
+			Steuerung.setAufzug(Aufzug, temp);
 			break;
 		case 3:
-			Steuerung.getAufzug(Aufzug).setZuslaesigesGesamtgewicht(scannerIN.nextFloat());
+			temp = Steuerung.getAufzug(Aufzug);
+			temp.setZuslaesigesGesamtgewicht(scannerIN.nextFloat());
+			Steuerung.setAufzug(Aufzug, temp);
 			break;
 		case 4:
-			Steuerung.getAufzug(Aufzug).setWeitereEigenschaften(scannerIN.nextLine());
+			scannerIN.nextLine();
+			temp = Steuerung.getAufzug(Aufzug);
+			temp.setWeitereEigenschaften(scannerIN.nextLine());
+			Steuerung.setAufzug(Aufzug, temp);
 			break;
 		case 5:
-			Steuerung.getAufzug(Aufzug).setStockwerk(scannerIN.nextInt());
+			temp = Steuerung.getAufzug(Aufzug);
+			temp.setStockwerk(scannerIN.nextInt());
+			Steuerung.setAufzug(Aufzug, temp);
 			break;
 		case 6:
-			Steuerung.getAufzug(Aufzug).setLastzaeler(scannerIN.nextFloat());
+			temp = Steuerung.getAufzug(Aufzug);
+			temp.setLastzaeler(scannerIN.nextFloat());
+			Steuerung.setAufzug(Aufzug, temp);
 			break;
 		}
 		System.out.println("Attribut wurde geändert.");
@@ -269,6 +284,7 @@ public class Main {
 			}
 		}
 		if (Auswahl == 2) {
+			Speicher.AlsDateiSpeichern(Steuerung.getAufzugliste());
 			main(null);
 		} else {
 			Speicher.AlsDateiSpeichern(Steuerung.getAufzugliste());
