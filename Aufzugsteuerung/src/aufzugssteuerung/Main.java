@@ -2,104 +2,140 @@ package aufzugssteuerung;
 
 import java.util.Scanner;
 
+/**
+ * Diese "Main"-Klasse ist der Dreh und Angelpunkt des Programms. Hier wird das
+ * Interface für die Steuerung generiert und verarbeitet. Die Methoden steuern
+ * dann (bei korrekter Eingabe) die weiteren Klassen und deren Methoden an. Das
+ * macht das Projekt übersichtlicher und einfacher zu steuern.
+ * 
+ * Die Klasse arbeitet hauptsächlich mit >scannerIN.nextInt< was die Eingaben
+ * durch den Benutzer repräsentieren. Diese Eingaben sind darauf ausgerichtet,
+ * immer Integer zu sein. Das bedeutet, dass das Programm in der Console auch
+ * nur mit Int-Eingaben funktioniert. Eine direkte Texteingabe ist nicht möglich
+ * und bringt das Programm zum Absturz.
+ * 
+ * @author Cedric Beyer und Julius Marquardt
+ */
+
 public class Main {
 	static Scanner scannerIN = new Scanner(System.in);
+
+	/**
+	 * Die Main-Methode und der Eingang in das Programm. Hier wird der Benutzer nach
+	 * seiner Wahl des Programms gefragt.
+	 * 
+	 * @param args
+	 */
 
 	public static void main(String[] args) {
 		Steuerung.setAufzugliste(Speicher.aufzugsdateiladen());
 		Steuerung.aufzugsGenerator();
-		int Auswahl = -1;
-		while (Auswahl > 2 || Auswahl < 1) {
+		int auswahl = -1;
+		while (auswahl > 2 || auswahl < 1) {
 			System.out.println("Was möchten sie tun?");
 			System.out.println("1: Aufzugsteuerung");
 			System.out.println("2: Attribute ausgeben oder ändern");
-			Auswahl = scannerIN.nextInt();
-			if (Auswahl > 2 || Auswahl < 1) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+			auswahl = scannerIN.nextInt();
+			if (auswahl > 2 || auswahl < 1) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 			}
 		}
-		if (Auswahl == 1) {
+		if (auswahl == 1) {
 			Aufzugrufen();
 		} else {
 			Systemcheck();
 		}
 	}
 
+	/**
+	 * Die gesammte Steuerung der Aufzüge. Hier wir nacheinander der Benutzer nach
+	 * Start-Stockwerk, der Wahl des Aufzugs und zuletzt dem Ziel-Stockwerk gefragt.
+	 * Durch die While-Schleifen bleiben die Abfragen so lange offen, bis eine
+	 * korrekte Eingabe getätigt wurde.
+	 */
+
 	private static void Aufzugrufen() {
-		int Ausgangsstockwerk = -1;
-		int Aufzugsart = -1;
-		float Last = -1;
-		int Zielstockwerk = -1;
+		int ausgangsstockwerk = -1;
+		int aufzugsart = -1;
+		float last = -1;
+		int zielstockwerk = -1;
 
-		while (Ausgangsstockwerk > 100 || Ausgangsstockwerk < 0) {
+		while (ausgangsstockwerk > 100 || ausgangsstockwerk < 0) {
 			System.out.println("In welchem Stockwerk befinden Sie sich?");
-			Ausgangsstockwerk = scannerIN.nextInt();
+			ausgangsstockwerk = scannerIN.nextInt();
 
-			if (Ausgangsstockwerk > 100 || Ausgangsstockwerk < 0) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+			if (ausgangsstockwerk > 100 || ausgangsstockwerk < 0) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 			}
 		}
-		while (Aufzugsart > 3 || Aufzugsart < 1) {
+		while (aufzugsart > 3 || aufzugsart < 1) {
 			System.out.println("Welcher Aufzug soll gerufen werden?");
 			System.out.println("1: Personenaufzug");
 			System.out.println("2: Lastenaufzug");
 			System.out.println("3: VIP Aufzug");
-			Aufzugsart = scannerIN.nextInt();
+			aufzugsart = scannerIN.nextInt();
 
-			if (Aufzugsart > 3 || Aufzugsart < 1) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
-			} else if (Aufzugsart == 3) {
-				System.out.println("Bitte VIP Passwot eingeben.");
-				int Passwort = scannerIN.nextInt();
-				if (Passwort != 1234) {
+			if (aufzugsart > 3 || aufzugsart < 1) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
+			} else if (aufzugsart == 3) {
+				System.out.println("Bitte VIP Passwot eingeben (Hinweis: 1234).");
+				int passwort = scannerIN.nextInt();
+				if (passwort != 1234) {
 					System.out.println("Falsches Passwort!");
-					Aufzugsart = -1;
+					aufzugsart = -1;
 				}
 			}
 		}
-		float maximallast = Steuerung.groestmoeglicherAufzug(Aufzugsart);
-		while (Last < 0 || Last > maximallast) {
-			if (Aufzugsart == 1 || Aufzugsart == 3) {
+		float maximallast = Steuerung.groestmoeglicherAufzug(aufzugsart);
+		while (last < 0 || last > maximallast) {
+			if (aufzugsart == 1 || aufzugsart == 3) {
 				System.out.println("Wie viele Personen sollen transportiert werden?");
 			} else {
 				System.out.println("Wie viel Gewicht wollen sie transportieren (in Kg)?");
 			}
-			Last = scannerIN.nextFloat();
-			if (Last > maximallast || Last < 0) {
-				System.out.println("Kein Aufzug dieser Größe verfügbar");
+			last = scannerIN.nextFloat();
+			if (last > maximallast || last < 0) {
+				System.out.println("Kein Aufzug dieser Größe verfügbar!");
 			}
 		}
-		int Aufzugnummer = Steuerung.passendeAufzugsnummerErmitteln(Last, Aufzugsart, Ausgangsstockwerk);
-		while (Zielstockwerk > 100 || Zielstockwerk < 0) {
+		int aufzugnummer = Steuerung.passendeAufzugsnummerErmitteln(last, aufzugsart, ausgangsstockwerk);
+		while (zielstockwerk > 100 || zielstockwerk < 0) {
 			System.out.println("In welches Stockwerk soll der Aufzug fahren?");
-			Zielstockwerk = scannerIN.nextInt();
+			zielstockwerk = scannerIN.nextInt();
 
-			if (Zielstockwerk > 100 || Zielstockwerk < 0) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+			if (zielstockwerk > 100 || zielstockwerk < 0) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 			}
 		}
-		Steuerung.fahren(Zielstockwerk, Last, Aufzugnummer);
+		Steuerung.fahren(zielstockwerk, last, aufzugnummer);
 		try {
 			Thread.sleep(3000);
 		} catch (Exception e) {
 		}
 		System.out.println("Sie befinden sich nun im Ziel Stockwerk.");
-		Programmende();
+		programmende();
 	}
 
+	/**
+	 * Steuerung der Attribute und der Ausgabe der Aufzugspositionen. Hier kann der
+	 * Benutzer die Attribute der Aufzüge entweder einzeln oder im gesammten
+	 * Ausgeben lassen und ändern. Dazu kann hier auch eine Liste aller Aufzüge mit
+	 * deren Position oder Attribute ausgegeben werden.
+	 */
+
 	private static void Systemcheck() {
-		int Systemcheck = -1;
-		while (Systemcheck > 2 || Systemcheck < 1) {
+		int systemcheck = -1;
+		while (systemcheck > 2 || systemcheck < 1) {
 			System.out.println("Welche Aktion soll ausgeführt werden?");
 			System.out.println("1: Ein Attribut ändern");
 			System.out.println("2: Aufzugspositionen abfragen");
-			Systemcheck = scannerIN.nextInt();
+			systemcheck = scannerIN.nextInt();
 
-			if (Systemcheck > 2 || Systemcheck < 1) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+			if (systemcheck > 2 || systemcheck < 1) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 			}
 		}
-		if (Systemcheck == 1) {
+		if (systemcheck == 1) {
 			Attributaenderung();
 		} else {
 			Positionsabfrage();
@@ -107,112 +143,118 @@ public class Main {
 	}
 
 	private static void Attributaenderung() {
-		int Aufzug = -1;
-		while (Aufzug < 0 || Aufzug > Steuerung.getAufzugslisteGroesse()) {
+		int aufzug = -1;
+		while (aufzug < 0 || aufzug > Steuerung.getAufzugslisteGroesse()) {
 			System.out.println("Welchen Aufzug wollen sie bearbeiten?");
-			Aufzug = scannerIN.nextInt();
-			if (Aufzug < 0 || Aufzug > Steuerung.getAufzugslisteGroesse()) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+			aufzug = scannerIN.nextInt();
+			if (aufzug < 0 || aufzug > Steuerung.getAufzugslisteGroesse()) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 			}
 		}
-		System.out.println("Aufzug " + String.valueOf(Aufzug) + " hat folgende Attribute:\nAufzugsart: "
-				+ Steuerung.getAufzug(Aufzug).getAufzugsart() + "\nPersonenzahl: "
-				+ String.valueOf(Steuerung.getAufzug(Aufzug).getPersonenzahl()) + "\nZulässiges Gesamtgewicht: "
-				+ String.valueOf(Steuerung.getAufzug(Aufzug).getZulaesigesGesamtGewicht()) + "\nWeitere Eigenschaften: "
-				+ Steuerung.getAufzug(Aufzug).getWeitereEigenschaften() + "\nStockwerk: "
-				+ String.valueOf(Steuerung.getAufzug(Aufzug).getStockwerk()) + "\nLastenzähler: "
-				+ String.valueOf(Steuerung.getAufzug(Aufzug).getLastzaehler()));
-		int Attributauswahl = -1;
-		while (Attributauswahl > 6 || Attributauswahl < 1) {
+		System.out.println("Aufzug " + String.valueOf(aufzug) + " hat folgende Attribute:\nAufzugsart: "
+				+ Steuerung.getAufzug(aufzug).getAufzugsart() + "\nPersonenzahl: "
+				+ String.valueOf(Steuerung.getAufzug(aufzug).getPersonenzahl()) + "\nZulässiges Gesamtgewicht: "
+				+ String.valueOf(Steuerung.getAufzug(aufzug).getZulaessigesGesamtgewicht())
+				+ "\nWeitere Eigenschaften: " + Steuerung.getAufzug(aufzug).getWeitereEigenschaften() + "\nStockwerk: "
+				+ String.valueOf(Steuerung.getAufzug(aufzug).getStockwerk()) + "\nLastenzähler: "
+				+ String.valueOf(Steuerung.getAufzug(aufzug).getLastzaehler()));
+		int attributauswahl = -1;
+		while (attributauswahl > 6 || attributauswahl < 1) {
 			System.out.println("Welches Attribut soll geändert werden?");
 			System.out.println("1: Aufzugsart");
 			System.out.println("2: Personenzahl");
-			System.out.println("3: zusläsiges Gesamtgewicht");
-			System.out.println("4: weitere Eigenschaften");
+			System.out.println("3: Zulässiges Gesamtgewicht");
+			System.out.println("4: Weitere Eigenschaften");
 			System.out.println("5: Stockwerk");
-			System.out.println("6: lastenzähler");
-			Attributauswahl = scannerIN.nextInt();
+			System.out.println("6: Lastenzähler");
+			attributauswahl = scannerIN.nextInt();
 
-			if (Attributauswahl > 6 || Attributauswahl < 1) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+			if (attributauswahl > 6 || attributauswahl < 1) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 			}
 		}
 		System.out.println("Welchen Wert soll das Attribut annehmen?");
 		Aufzug temp;
-		switch (Attributauswahl) {
+		switch (attributauswahl) {
 		case 1:
 			scannerIN.nextLine();
-			temp = Steuerung.getAufzug(Aufzug);
+			temp = Steuerung.getAufzug(aufzug);
 			temp.setAufzugsart(scannerIN.nextLine());
-			Steuerung.setAufzug(Aufzug, temp);
+			Steuerung.setAufzug(aufzug, temp);
 			break;
 		case 2:
-			temp = Steuerung.getAufzug(Aufzug);
+			temp = Steuerung.getAufzug(aufzug);
 			temp.setPersonenzahl(scannerIN.nextInt());
-			Steuerung.setAufzug(Aufzug, temp);
+			Steuerung.setAufzug(aufzug, temp);
 			break;
 		case 3:
-			temp = Steuerung.getAufzug(Aufzug);
-			temp.setZuslaesigesGesamtgewicht(scannerIN.nextFloat());
-			Steuerung.setAufzug(Aufzug, temp);
+			temp = Steuerung.getAufzug(aufzug);
+			temp.setZulaessigesGesamtgewicht(scannerIN.nextFloat());
+			Steuerung.setAufzug(aufzug, temp);
 			break;
 		case 4:
 			scannerIN.nextLine();
-			temp = Steuerung.getAufzug(Aufzug);
+			temp = Steuerung.getAufzug(aufzug);
 			temp.setWeitereEigenschaften(scannerIN.nextLine());
-			Steuerung.setAufzug(Aufzug, temp);
+			Steuerung.setAufzug(aufzug, temp);
 			break;
 		case 5:
-			temp = Steuerung.getAufzug(Aufzug);
+			temp = Steuerung.getAufzug(aufzug);
 			temp.setStockwerk(scannerIN.nextInt());
-			Steuerung.setAufzug(Aufzug, temp);
+			Steuerung.setAufzug(aufzug, temp);
 			break;
 		case 6:
-			temp = Steuerung.getAufzug(Aufzug);
+			temp = Steuerung.getAufzug(aufzug);
 			temp.setLastzaeler(scannerIN.nextFloat());
-			Steuerung.setAufzug(Aufzug, temp);
+			Steuerung.setAufzug(aufzug, temp);
 			break;
 		}
 		System.out.println("Attribut wurde geändert.");
-		Programmende();
+		programmende();
 	}
 
+	/**
+	 * Filterung der Aufzüge. Hier ist es dem Benutzer des Programms möglich,
+	 * entweder die Positionen aller Aufzüge auszugeben oder nach einem bestimmten
+	 * Attribut zu filtern.
+	 */
+
 	private static void Positionsabfrage() {
-		int Abfrage = -1;
-		while (Abfrage > 2 || Abfrage < 1) {
+		int abfrage = -1;
+		while (abfrage > 2 || abfrage < 1) {
 			System.out.println("Welche Aktion soll ausgeführt werden?");
 			System.out.println("1: Alle Aufzug Positionen ausgeben");
 			System.out.println("2: Nach Atributen filtern");
-			Abfrage = scannerIN.nextInt();
+			abfrage = scannerIN.nextInt();
 
-			if (Abfrage > 2 || Abfrage < 1) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+			if (abfrage > 2 || abfrage < 1) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 			}
 		}
-		if (Abfrage == 1) {
+		if (abfrage == 1) {
 			System.out.println("");
 			for (Aufzug aufzug : Steuerung.getAufzugliste()) {
 				System.out.println("Aufzug " + String.valueOf(aufzug.getNummer()) + " Befindet sich in Stockwerk "
 						+ String.valueOf(aufzug.getStockwerk()));
 			}
 		} else {
-			int Attributauswahl = -1;
-			while (Attributauswahl > 6 || Attributauswahl < 1) {
-				System.out.println("Nach welchem Attribut soll gefiltert werden");
+			int attributAuswahl = -1;
+			while (attributAuswahl > 6 || attributAuswahl < 1) {
+				System.out.println("Nach welchem Attribut soll gefiltert werden?");
 				System.out.println("1: Aufzugsart");
 				System.out.println("2: Personenzahl");
-				System.out.println("3: zusläsiges Gesamtgewicht");
-				System.out.println("4: weitere Eigenschaften");
+				System.out.println("3: Zulässiges Gesamtgewicht");
+				System.out.println("4: Weitere Eigenschaften");
 				System.out.println("5: Stockwerk");
-				System.out.println("6: lastenzähler");
-				Attributauswahl = scannerIN.nextInt();
+				System.out.println("6: Lastenzähler");
+				attributAuswahl = scannerIN.nextInt();
 
-				if (Attributauswahl > 6 || Attributauswahl < 1) {
-					System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+				if (attributAuswahl > 6 || attributAuswahl < 1) {
+					System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 				}
 			}
 			System.out.println("Welchen Wert soll das Attribut haben?");
-			switch (Attributauswahl) {
+			switch (attributAuswahl) {
 			case 1:
 				String wert1 = scannerIN.nextLine();
 				for (Aufzug aufzug : Steuerung.getAufzugliste()) {
@@ -234,7 +276,7 @@ public class Main {
 			case 3:
 				float wert3 = scannerIN.nextFloat();
 				for (Aufzug aufzug : Steuerung.getAufzugliste()) {
-					if (aufzug.getZulaesigesGesamtGewicht() == wert3) {
+					if (aufzug.getZulaessigesGesamtgewicht() == wert3) {
 						System.out.println("Aufzug " + String.valueOf(aufzug.getNummer())
 								+ " Befindet sich in Stockwerk " + String.valueOf(aufzug.getStockwerk()));
 					}
@@ -269,26 +311,32 @@ public class Main {
 				break;
 			}
 		}
-		Programmende();
+		programmende();
 	}
 
-	private static void Programmende() {
-		int Auswahl = -1;
-		while (Auswahl > 2 || Auswahl < 1) {
+	/**
+	 * Das Programmende. Zu dieser Abfrage wird der Benutzer zum Schluss seiner
+	 * Eingaben hingeleitet. Hier kann das Programm entweder von vorne gestartet
+	 * werden oder beendet werden. Dazu werden alle Änderung bei der Schließung des
+	 * Programms abgespeichert und übernommen.
+	 */
+
+	private static void programmende() {
+		int auswahl = -1;
+		while (auswahl > 2 || auswahl < 1) {
 			System.out.println("Wollen Sie das Programm beenden?");
 			System.out.println("1: Ja");
 			System.out.println("2: Nein");
-			Auswahl = scannerIN.nextInt();
-			if (Auswahl > 2 || Auswahl < 1) {
-				System.out.println("SIE VOLLIDIOT GEHEN SIE SICH EIN HOBBY SUCHEN!!!");
+			auswahl = scannerIN.nextInt();
+			if (auswahl > 2 || auswahl < 1) {
+				System.out.println("Die Eingabe war leider Falsch. Versuchen sie es erneut.");
 			}
 		}
-		if (Auswahl == 2) {
-			Speicher.AlsDateiSpeichern(Steuerung.getAufzugliste());
+		if (auswahl == 2) {
+			Speicher.alsDateiSpeichern(Steuerung.getAufzugliste());
 			main(null);
 		} else {
-			Speicher.AlsDateiSpeichern(Steuerung.getAufzugliste());
+			Speicher.alsDateiSpeichern(Steuerung.getAufzugliste());
 		}
 	}
-
 }

@@ -1,115 +1,147 @@
 package aufzugssteuerung;
 
 /**
- * Diese "Aufzugs"-Klasse gibt ann welche Atribute einem Aufzug zur verffügung stehen.
- * Das ganze kann, dann durch getter -und setter Methoden abgerufen werden.
+ * Diese "Aufzug"-Klasse gibt an welche Attribute einem Aufzug zur verfügung
+ * stehen. Das ganze kann dann durch Getter -und Setter-Methoden abgerufen
+ * werden.
  * 
- * @author Cedric Beyer 
- * 
+ * @author Cedric Beyer
  */
+
 public class Aufzug {
 
 	/**
-	 * Legt einen Nummer für den Aufzug fest.
+	 * Legt eine Nummer für einen Aufzug fest.
 	 */
+
 	private int nummer;
+
 	/**
-	 * Die Aufzugsart wird beschrieben
+	 * Die Art des Aufzugs.
 	 */
+
 	private String aufzugsart;
+
 	/**
-	 * Die anzahl an Personen die Transportiert werden dürfen.
+	 * Die Anzahl an Personen die transportiert werden dürfen.
 	 */
+
 	private int personenzahl;
+
 	/**
-	 * Das maximal Gewicht, dass ein Aufzug transportieren kann.
+	 * Das maximal Gewicht das ein Aufzug transportieren kann.
 	 */
-	private float zuslaesigesGesamtgewicht;
+
+	private float zulaessigesGesamtgewicht;
+
 	/**
-	 * Weiter speciell Eigenschafen die bei jedem Aufzug unterschiedlich sein können.
+	 * Weitere spezial Eigenschaften, die bei jedem Aufzug unterschiedlich sein
+	 * können.
 	 */
+
 	private String weitereEigenschaften;
+
 	/**
 	 * Das Stockwerk auf dem sich der Aufzug befindet.
 	 */
+
 	private int stockwerk = 0;
+
 	/**
-	 * Der Lastenzähler ist die Gesamtanzahl die jemals an Personen oder Gewicht transportiert wurde.
+	 * Der Lastenzähler ist die Gesamtanzahl, der jemals an Personen oder Gewicht
+	 * transportierten Mengen.
 	 */
+
 	private float lastzaehler = 0;
-	
+
 	/**
-	 * Der Aufzug bekommt alle seine Werte, mit denen er sich als Aufzug beschreiben darf.
+	 * Der Aufzug bekommt alle seine Werte, mit denen er sich als Aufzug beschreiben
+	 * soll.
 	 * 
-	 * @param nummer ist die Aufzugsnummer die der Aufzug erhält.
-	 * @param aufzugsart ist die um welchen Aufzug es sich handelt.
-	 * @param personenzahl die menge an Personen die maximal transportiert werden dürfen.
-	 * @param zuslaesigesGesamtgewicht das maximal Gewicht, dass transportiert werden darf.
-	 * @param weitereEigenscahften die zussätzklichen besonderheiten jedes Aufzuges.
+	 * @param nummer                   ; ist die Aufzugsnummer die der Aufzug
+	 *                                 erhält.
+	 * @param aufzugsart               ; beschreibt um welche Art von Aufzug es sich
+	 *                                 handelt.
+	 * @param personenzahl             ; die Menge an Personen, die maximal
+	 *                                 transportiert werden dürfen.
+	 * @param zulaessigesGesamtgewicht ; das maximal Gewicht das transportiert
+	 *                                 werden darf.
+	 * @param weitereEigenschaften     ; die zusätzlichen Besonderheiten jedes
+	 *                                 Aufzuges.
 	 */
-	public Aufzug(int nummer, String aufzugsart, int personenzahl, float zuslaesigesGesamtgewicht, String weitereEigenscahften) {
+
+	public Aufzug(int nummer, String aufzugsart, int personenzahl, float zulaessigesGesamtgewicht,
+			String weitereEigenschaften) {
 		this.nummer = nummer;
 		this.aufzugsart = aufzugsart;
 		this.personenzahl = personenzahl;
-		this.zuslaesigesGesamtgewicht = zuslaesigesGesamtgewicht;
-		this.weitereEigenschaften = weitereEigenscahften;
+		this.zulaessigesGesamtgewicht = zulaessigesGesamtgewicht;
+		this.weitereEigenschaften = weitereEigenschaften;
 	}
-	
+
 	/**
-	 * Der Aufzug bewget sich durch die Stockwerke und veränder somit seinen Standort.
+	 * Der Aufzug bewegt sich durch die Stockwerke und verändert somit seinen
+	 * Standort.
 	 * 
-	 * @param last wie viele Personen oder Gewicht transportiert werden muss.
-	 * @param stockwerk das neue Stockwerk auf dem sich der Aufzug befinden soll.
+	 * @param last      ; wie viele Personen oder Gewicht transportiert werden muss.
+	 * @param stockwerk ; das neue Stockwerk auf dem sich der Aufzug befinden soll.
 	 */
-	public void fahren (float last, int stockwerk) {
+
+	public void fahren(float last, int stockwerk) {
 		this.stockwerk = stockwerk;
 		this.lastzaehler = this.lastzaehler + last;
 	}
-	
 
 	/**
-	 * Hier werden alle getter und setter Methoden declariet, damit das Programm auf diese zugreifen kann.
-	 * Damit können Änderungen und Abfragen aufgerufen werden.
-	 * 
+	 * Hier werden alle Getter- und Setter Methoden deklariert, damit das Programm
+	 * auf diese zugreifen kann. Damit können Änderungen und Abfragen aufgerufen
+	 * werden.
 	 */
+
 	public int getNummer() {
 		return nummer;
 	}
+
 	public void setNummer(int nummer) {
 		this.nummer = nummer;
 	}
-	
+
 	public String getAufzugsart() {
 		return aufzugsart;
 	}
+
 	public void setAufzugsart(String aufzugsart) {
 		this.aufzugsart = aufzugsart;
 	}
-	
+
 	public int getPersonenzahl() {
 		return personenzahl;
 	}
+
 	public void setPersonenzahl(int personenzahl) {
 		this.personenzahl = personenzahl;
 	}
-	
-	public float getZulaesigesGesamtGewicht() {
-		return zuslaesigesGesamtgewicht;
+
+	public float getZulaessigesGesamtgewicht() {
+		return zulaessigesGesamtgewicht;
 	}
-	public void setZuslaesigesGesamtgewicht(float zuslaesigesGesamtgewicht) {
-		this.zuslaesigesGesamtgewicht = zuslaesigesGesamtgewicht;
+
+	public void setZulaessigesGesamtgewicht(float zuslaesigesGesamtgewicht) {
+		this.zulaessigesGesamtgewicht = zuslaesigesGesamtgewicht;
 	}
-	
+
 	public String getWeitereEigenschaften() {
 		return weitereEigenschaften;
 	}
+
 	public void setWeitereEigenschaften(String weitereEigenscahften) {
 		this.weitereEigenschaften = weitereEigenscahften;
 	}
-	
+
 	public int getStockwerk() {
 		return stockwerk;
 	}
+
 	public void setStockwerk(int stockwerk) {
 		this.stockwerk = stockwerk;
 	}
@@ -117,9 +149,9 @@ public class Aufzug {
 	public float getLastzaehler() {
 		return lastzaehler;
 	}
+
 	public void setLastzaeler(float lastzaehler) {
 		this.lastzaehler = lastzaehler;
 	}
-	
-	
+
 }

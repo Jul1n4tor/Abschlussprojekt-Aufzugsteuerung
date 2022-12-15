@@ -1,28 +1,31 @@
 package aufzugssteuerung;
 
-import aufzugssteuerung.Aufzug;
 import java.util.ArrayList;
 
 /**
- * In der "Steuerungs"-Klasse wird der Arrayindex generiert in dem alle Aufüge stehen.
- * Dazu wird diese Klasse dafür verwendent, dass bei der Auswahl einen Aufzugs immer der passende
- * und nächstmögliche Aufzug ausgewählt wird.
- * Desweiteren wird dem Aufzug hier beigebracht wie er sich durch die Stockwerke bewegen soll.
+ * In der "Steuerung"-Klasse wird der Arrayindex generiert in dem alle Aufüge
+ * stehen. Dazu wird diese Klasse dafür verwendent, dass bei der Auswahl eines
+ * Aufzugs immer der passende und nächstmögliche Aufzug ausgewählt wird.
+ * Desweiteren wird dem Aufzug hier beigebracht wie er sich durch die Stockwerke
+ * bewegen soll.
  * 
- * @author Cedric Beyer 
- *
+ * @author Cedric Beyer
  */
+
 public class Steuerung {
 
 	/**
-	 * Hier wird ein Neues Array erstllt in dem sich alle Aufzüge befinden und abgerufen werden können.
+	 * Hier wird ein neues Array erstellt in dem sich alle Aufzüge befinden und
+	 * abgerufen werden können.
 	 */
+
 	private static Aufzug[] aufzugsListe = new Aufzug[50];
 
 	/**
-	 * Generiert ein Array mit allen exestierenden Aufzügen und den dazugehörigen Atributen. 
-	 * 
+	 * Generiert ein Array mit allen existierenden Aufzügen und den dazugehörigen
+	 * Attributen.
 	 */
+
 	public static void aufzugsGenerator() {
 		if (aufzugsListe[0] == null) {
 
@@ -56,10 +59,11 @@ public class Steuerung {
 	}
 
 	/**
-	 * Gibt die größe der Aufzugs Arrys aus.
+	 * Gibt die größe der Arraylist der Aufzüge aus.
 	 * 
 	 * @return Länge der Aufzugliste wird ausgegeben.
 	 */
+
 	public static int getAufzugslisteGroesse() {
 		return aufzugsListe.length - 1;
 	}
@@ -67,27 +71,31 @@ public class Steuerung {
 	/**
 	 * Liste aller Aufzüge wird abgespeichert.
 	 * 
-	 * @param Liste wird als neues Atribut verwändet.
+	 * @param liste wird als neues Attribut verwendet.
 	 */
-	public static void setAufzugliste(Aufzug[] Liste) {
-		aufzugsListe = Liste;
+
+	public static void setAufzugliste(Aufzug[] liste) {
+		aufzugsListe = liste;
 	}
 
 	/**
-	 * Der bestmöglichst passende Aufzug wird gerufen. In den jeder und alles hinein passt.
+	 * Der nächstmögliche, passende Aufzug wird gerufen. Hier soll jeder und alles
+	 * hinein passt.
 	 * 
-	 * @param Aufzugsart die Art welcher Aufzug gerufen wird. Sei es Peronen oder LastenAufzug.
+	 * @param aufzugsart ; die Art des Aufzugs der gerufen wird. Kann Personen- oder
+	 *                   Lastenaufzug sein.
 	 * 
 	 * @return zulassung wenn der Passende Aufzug gefunden wurde.
 	 */
-	public static float groestmoeglicherAufzug(int Aufzugsart) {
+
+	public static float groestmoeglicherAufzug(int aufzugsart) {
 		ArrayList<Aufzug> passendeAufzuege = new ArrayList<>();
 		for (Aufzug aufzug : aufzugsListe) {
-			if (Aufzugsart == 1) {
+			if (aufzugsart == 1) {
 				if (aufzug.getAufzugsart().contains("Personenaufzug")) {
 					passendeAufzuege.add(aufzug);
 				}
-			} else if (Aufzugsart == 2) {
+			} else if (aufzugsart == 2) {
 				if (aufzug.getAufzugsart().contains("Lastenaufzug")) {
 					passendeAufzuege.add(aufzug);
 				}
@@ -99,7 +107,7 @@ public class Steuerung {
 		}
 
 		float zulassung = 0;
-		if (Aufzugsart == 1 || Aufzugsart == 3) {
+		if (aufzugsart == 1 || aufzugsart == 3) {
 			for (Aufzug aufzug : passendeAufzuege) {
 				if (aufzug.getPersonenzahl() > zulassung) {
 					zulassung = aufzug.getPersonenzahl();
@@ -107,8 +115,8 @@ public class Steuerung {
 			}
 		} else {
 			for (Aufzug aufzug : passendeAufzuege) {
-				if (aufzug.getZulaesigesGesamtGewicht() > zulassung) {
-					zulassung = aufzug.getZulaesigesGesamtGewicht();
+				if (aufzug.getZulaessigesGesamtgewicht() > zulassung) {
+					zulassung = aufzug.getZulaessigesGesamtgewicht();
 				}
 			}
 		}
@@ -116,85 +124,93 @@ public class Steuerung {
 	}
 
 	/**
-	 * Der Aufzug der sich am nächsten am eigenen Stockwerk befindet kommt angefahren.
+	 * Der Aufzug der sich am nächsten zum eigenen Stockwerk befindet soll
+	 * angefahren kommen.
 	 * 
-	 * @param Last das Gewicht-/Personenanzahl die transportiert werden soll.
-	 * @param Aufzugsart die Art des Aufzug der gerufen werden soll.
-	 * @param Stockwerk das Sockwerk auf dem man sich befindet.
+	 * @param last       ; das Gewicht-/ die Personenanzahl die transportiert werden
+	 *                   soll.
+	 * @param aufzugsart ; die Art des Aufzug der gerufen werden soll.
+	 * @param stockwerk  ; das Stockwerk auf dem man sich befindet.
 	 * 
 	 * @return Aufzugsnummer wenn der am nächsten befindliche Aufzug gefunden wurde.
 	 */
-	public static int passendeAufzugsnummerErmitteln(float Last, int Aufzugsart, int Stockwerk) {
+
+	public static int passendeAufzugsnummerErmitteln(float last, int aufzugsart, int stockwerk) {
 		ArrayList<Aufzug> passendeAufzuege = new ArrayList<>();
 		for (Aufzug aufzug : aufzugsListe) {
-			if (Aufzugsart == 1) {
-				if (aufzug.getAufzugsart().contains("Personenaufzug") && aufzug.getPersonenzahl() >= Last) {
+			if (aufzugsart == 1) {
+				if (aufzug.getAufzugsart().contains("Personenaufzug") && aufzug.getPersonenzahl() >= last) {
 					passendeAufzuege.add(aufzug);
 				}
-			} else if (Aufzugsart == 2) {
-				if (aufzug.getAufzugsart().contains("Lastenaufzug") && aufzug.getZulaesigesGesamtGewicht() >= Last) {
+			} else if (aufzugsart == 2) {
+				if (aufzug.getAufzugsart().contains("Lastenaufzug") && aufzug.getZulaessigesGesamtgewicht() >= last) {
 					passendeAufzuege.add(aufzug);
 				}
 			} else {
-				if (aufzug.getAufzugsart().contains("VIP-Aufzug") && aufzug.getPersonenzahl() >= Last) {
+				if (aufzug.getAufzugsart().contains("VIP-Aufzug") && aufzug.getPersonenzahl() >= last) {
 					passendeAufzuege.add(aufzug);
 				}
 			}
 		}
-		int Aufzugsnummer = -1;
-		int Abstand = 102;
+		int aufzugsnummer = -1;
+		int abstand = 102;
 
 		for (Aufzug aufzug : passendeAufzuege) {
-			int distanz = aufzug.getStockwerk() - Stockwerk;
+			int distanz = aufzug.getStockwerk() - stockwerk;
 			if (distanz < 0) {
 				distanz *= -1;
 			}
-			if (distanz < Abstand) {
-				Abstand = distanz;
-				Aufzugsnummer = aufzug.getNummer();
+			if (distanz < abstand) {
+				abstand = distanz;
+				aufzugsnummer = aufzug.getNummer();
 			}
 		}
-		return Aufzugsnummer;
+		return aufzugsnummer;
 	}
 
 	/**
 	 * Der Aufzug bewegt sich vom Startstockwerk ins Zielstockwerk.
 	 * 
-	 * @param zielsstockwerk das Stockwerk wo man wieder aussteigen möchte.
-	 * @param last die anzhal Personen-/Gewicht die transportiert werden sollen.
-	 * @param Aufzugsnummer der Aufzug der sich bewegen soll.
+	 * @param zielsstockwerk ; das Stockwerk aus dem man aussteigen möchte.
+	 * @param last           ; die Anzahl der Personen/Gewichte die transportiert
+	 *                       werden sollen.
+	 * @param aufzugsnummer  ; der Aufzug der sich bewegen soll.
 	 */
-	public static void fahren(int zielsstockwerk, float last, int Aufzugsnummer) {
-		aufzugsListe[Aufzugsnummer].fahren(last, zielsstockwerk);
+
+	public static void fahren(int zielsstockwerk, float last, int aufzugsnummer) {
+		aufzugsListe[aufzugsnummer].fahren(last, zielsstockwerk);
 	}
 
 	/**
 	 * Aus der Aufzugsliste wird die Aufzugsnummer eines Aufzuges abgerufen.
 	 * 
-	 * @param Aufzugsnummer die Nummer die der Aufzug automatisch erhalten hat.
+	 * @param Aufzugsnummer ; die Nummer die der Aufzug automatisch erhalten hat.
 	 * 
-	 * @return gibt die Liste aus mit der Aufzugsnummer. 
+	 * @return gibt die Liste aus mit der Aufzugsnummer.
 	 */
+
 	public static Aufzug getAufzug(int Aufzugsnummer) {
 		return aufzugsListe[Aufzugsnummer];
 	}
 
 	/**
-	 * Die komplete Aufzugsliste wird Ausgegeben.
+	 * Die komplette Aufzugsliste wird ausgegeben.
 	 * 
 	 * @return Aufzugsliste kann abgerufen werden.
 	 */
+
 	public static Aufzug[] getAufzugliste() {
 		return aufzugsListe;
 	}
-	
+
 	/**
 	 * Jeder Aufzug bekommt eine Aufzugsnummer zugeteilt.
 	 * 
-	 * @param Aufzugsnummer die Nummer des entsprechenden Aufzuges.
-	 * @param aufzug der Aufzug der abgerufen wird.
+	 * @param aufzugsNummer ; die Nummer des entsprechenden Aufzuges.
+	 * @param aufzug        ; der Aufzug der abgerufen wird.
 	 */
-	public static void setAufzug(int Aufzugsnummer, Aufzug aufzug) {
-		aufzugsListe[Aufzugsnummer] = aufzug; 
+
+	public static void setAufzug(int aufzugsNummer, Aufzug aufzug) {
+		aufzugsListe[aufzugsNummer] = aufzug;
 	}
 }
