@@ -32,7 +32,7 @@ public class Main {
 		Steuerung.aufzugsGenerator();
 		int auswahl = -1;
 		while (auswahl > 2 || auswahl < 1) {
-			System.out.println("Was möchten sie tun?");
+			System.out.println("Was möchten Sie tun?");
 			System.out.println("1: Aufzugsteuerung");
 			System.out.println("2: Attribute ausgeben oder ändern");
 			auswahl = scannerIN.nextInt();
