@@ -37,7 +37,7 @@ public class Main {
 			System.out.println("2: Attribute ausgeben oder ändern");
 			auswahl = scannerIN.nextInt();
 			if (auswahl > 2 || auswahl < 1) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			}
 		}
 		if (auswahl == 1) {
@@ -65,7 +65,7 @@ public class Main {
 			ausgangsstockwerk = scannerIN.nextInt();
 
 			if (ausgangsstockwerk > 100 || ausgangsstockwerk < 0) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			}
 		}
 		while (aufzugsart > 3 || aufzugsart < 1) {
@@ -76,9 +76,9 @@ public class Main {
 			aufzugsart = scannerIN.nextInt();
 
 			if (aufzugsart > 3 || aufzugsart < 1) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			} else if (aufzugsart == 3) {
-				System.out.println("Bitte VIP Passwot eingeben (Hinweis: 1234).");
+				System.out.println("Bitte VIP Passwort eingeben (Hinweis: 1234).");
 				int passwort = scannerIN.nextInt();
 				if (passwort != 1234) {
 					System.out.println("Falsches Passwort!");
@@ -104,7 +104,7 @@ public class Main {
 			zielstockwerk = scannerIN.nextInt();
 
 			if (zielstockwerk > 100 || zielstockwerk < 0) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			}
 		}
 		Steuerung.fahren(zielstockwerk, last, aufzugnummer);
@@ -132,7 +132,7 @@ public class Main {
 			systemcheck = scannerIN.nextInt();
 
 			if (systemcheck > 2 || systemcheck < 1) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			}
 		}
 		if (systemcheck == 1) {
@@ -148,7 +148,7 @@ public class Main {
 			System.out.println("Welchen Aufzug wollen sie bearbeiten?");
 			aufzug = scannerIN.nextInt();
 			if (aufzug < 0 || aufzug > Steuerung.getAufzugslisteGroesse()) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			}
 		}
 		System.out.println("Aufzug " + String.valueOf(aufzug) + " hat folgende Attribute:\nAufzugsart: "
@@ -170,7 +170,7 @@ public class Main {
 			attributauswahl = scannerIN.nextInt();
 
 			if (attributauswahl > 6 || attributauswahl < 1) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			}
 		}
 		System.out.println("Welchen Wert soll das Attribut annehmen?");
@@ -224,11 +224,11 @@ public class Main {
 		while (abfrage > 2 || abfrage < 1) {
 			System.out.println("Welche Aktion soll ausgeführt werden?");
 			System.out.println("1: Alle Aufzug Positionen ausgeben");
-			System.out.println("2: Nach Atributen filtern");
+			System.out.println("2: Nach Attributen filtern");
 			abfrage = scannerIN.nextInt();
 
 			if (abfrage > 2 || abfrage < 1) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			}
 		}
 		if (abfrage == 1) {
@@ -250,7 +250,7 @@ public class Main {
 				attributAuswahl = scannerIN.nextInt();
 
 				if (attributAuswahl > 6 || attributAuswahl < 1) {
-					System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+					System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 				}
 			}
 			System.out.println("Welchen Wert soll das Attribut haben?");
@@ -329,7 +329,7 @@ public class Main {
 			System.out.println("2: Nein");
 			auswahl = scannerIN.nextInt();
 			if (auswahl > 2 || auswahl < 1) {
-				System.out.println("Die Eingabe war leider Falsch. Versuchen Sie es erneut.");
+				System.out.println("Die Eingabe war leider falsch. Versuchen Sie es erneut.");
 			}
 		}
 		if (auswahl == 2) {
